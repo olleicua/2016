@@ -3,7 +3,7 @@
   var tracks = ('basicgroove breakbeat dance hopesanddreams texture ' +
                 'breakatmosphere breakroads everythingihave rhythm').split(' ');
   var notes = ('G B C D E Gb G2 A2 B2 C2 D2').split(' ');
-  var melody = ('D B G B D G2 B2 A2 G2 B C D D D B2 A2 G2 Gb E Gb G2 G2 D B G B2 B2 B2 C2 D2 D2 C2 B2 A2 B2 C2 C2 C2 B2 A2 G2 Gb E Gb G2 B C D D G2 G2 G2 Gb E E E A2 C2 B2 A2 G2 G2 A2 G2 Gb D D G2 A2 B2 C2 D2 G2 A2 B2 C2 A2 G2').split(' ');
+  var melody = ('D B G* B* D* G2* B2 A2 G2* B* C* D* D D B2* A2 G2* Gb* E Gb G2* G2* D* B* G* B2 B2 B2* C2* D2* D2* C2 B2 A2* B2* C2* C2* C2 B2* A2 G2 Gb* E Gb G2* B* C* D* D* G2* G2 G2 Gb E* E E A2* C2 B2 A2 G2 G2* A2 G2 Gb* D D G2* A2 B2 C2 D2* G2 A2 B2* C2 A2* G2*').split(' ');
 
   function Note(label) {
     var that = this;
@@ -101,10 +101,13 @@
 
       if (!this.playing) {
         if (melody[this.noteIndex]) {
-          this.notes[melody[this.noteIndex]].start();
+          var note = melody[this.noteIndex];
+          var duration = /\*/.exec(note) ? 3000 : 1500;
+          note = note.replace('*', '');
+          this.notes[note].start();
           this.noteIndex++;
           this.playing = true;
-          setTimeout(function() { that.playing = false; }, 2500);
+          setTimeout(function() { that.playing = false; }, duration);
         } else {
           Message.message('what sound does the nuclear apocolypse make?', 2000);
           setTimeout(function() {

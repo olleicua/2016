@@ -32,7 +32,7 @@
       label: 'basicgroove',
       interact: function() {
         Message.multiPartMessage([
-          'In the United States a President serves as the locus of executive power for a term of four, or eight, years.',
+          'In the United States a President serves as the locus of executive power for a term of four,<br /> or eight, years.',
           'Originally a president could serve for as many terms as the people continued to elect him.',
           'In 1947 a term limit of two terms, or eight years, was introduced.',
           'In the time since then, power has, for the most part, oscillated on a more-or-less regular schedule',
