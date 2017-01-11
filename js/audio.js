@@ -1,27 +1,23 @@
 (function() {
-  // create audio container with webkit fallback
-  var context = new (window.AudioContext || window.webkitAudioContext)();
-
   // list of loops
   var tracks = ('basicgroove breakbeat dance hopesanddreams texture ' +
                 'breakatmosphere breakroads everythingihave rhythm').split(' ');
 
   function Loop(label, callback) {
-
     // init
-    var gain = context.createGain();
-    var source = context.createBufferSource();
+    var gain = Audio.context.createGain();
+    var source = Audio.context.createBufferSource();
     var request = new XMLHttpRequest();
     source.loop = true;
     source.connect(gain);
     gain.gain.value = 0;
-    gain.connect(context.destination);
+    gain.connect(Audio.context.destination);
 
     // load file
     request.open('GET', 'audio/' + label + '.wav', true);
     request.responseType = 'arraybuffer';
     request.onload = function() {
-      context.decodeAudioData(request.response, function(buffer) {
+      Audio.context.decodeAudioData(request.response, function(buffer) {
         source.buffer = buffer;
         callback();
       });
@@ -39,15 +35,24 @@
     initialize: function(callback) {
       var that = this;
 
-      var allTracksLoaded = _.after(tracks.length, function() {
-        for (var i = 0; i < tracks.length; i++) { that[tracks[i]].start(); }
+      if (!window.AudioContext && !window.webkitAudioContext) {
+        Message.set('this web browser will not work for this, try Google Chrome');
+      } else {
+        // create audio container with webkit fallback
+        this.context = new (window.AudioContext || window.webkitAudioContext)();
 
-        setTimeout(callback, 750);
-      });
+        var allTracksLoaded = _.after(tracks.length, function() {
+          for (var i = 0; i < tracks.length; i++) { that[tracks[i]].start(); }
 
-      for (var i = 0; i < tracks.length; i++) {
-        var trackName = tracks[i];
-        this[trackName] = new Loop(trackName, allTracksLoaded);
+          that.rhythm.volume(0.02);
+
+          setTimeout(callback, 750);
+        });
+
+        for (var i = 0; i < tracks.length; i++) {
+          var trackName = tracks[i];
+          this[trackName] = new Loop(trackName, allTracksLoaded);
+        }
       }
     }
   };

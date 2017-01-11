@@ -9,6 +9,9 @@
         Message.set('enterring space');
         UI.initialize(function() {
           Message.clear();
+          setTimeout(function() {
+            Message.message('<div class="ui-image"></div>', 1500);
+          }, 2000);
         });
       });
     });

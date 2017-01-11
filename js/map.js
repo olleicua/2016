@@ -1,7 +1,7 @@
 (function() {
 
   var PIXEL_HEIGHT = 9;
-  var START_POSITION = [29, 36];
+  var START_POSITION = [29, 37];
 
   var grid = [
     '##############################################',
@@ -18,7 +18,7 @@
     '###       ############     #########-----#####',
     '##                 -                     #####',
     '##                 -                     #####',
-    '#               5  -     4               #####',
+    '#         5        -     4               #####',
     '# 7                -                     #####',
     '#                  -                     #####',
     '##     6        ####################  2  #####',
@@ -56,17 +56,38 @@
 
           if (symbol !== '#') {
             var space = document.createElement('div');
-            space.className = 'space';
+            if (symbol === '-') {
+              space.className = 'space region-boundary';
+            } else {
+              space.className = 'space';
+            }
             space.style.height = (this.pixelSize) + 'px';
             space.style.width = (this.pixelSize) + 'px';
             space.style.top = (this.pixelSize * y) + 'px';
             space.style.left = (this.pixelSize * x) + 'px';
-            this.map.append(space);
+            appendFadeIn(this.map, space);
+
+            if (symbol === 'S') {
+              this.startSpace = space;
+            }
           }
 
           var entity = Entities[this.position([y, x])];
           if (entity) {
-            //
+            entity.position = [y, x];
+
+            var entityElement = document.createElement('div');
+            if (entity.label === 'button') {
+              entityElement.className = 'entity button';
+            } else {
+              entityElement.className = 'entity';
+            }
+            entityElement.style.height = (1.3 * this.pixelSize) + 'px';
+            entityElement.style.width = (1.3 * this.pixelSize) + 'px';
+            entityElement.style.top = (this.pixelSize * (y - 0.17)) + 'px';
+            entityElement.style.left = (this.pixelSize * (x - 0.17)) + 'px';
+            entity.element = entityElement
+            appendFadeIn(this.map, entityElement);
           }
         }
       }
@@ -89,14 +110,24 @@
       if (symbol !== '#' && symbol != null) {
         this.currentLocation = vector;
 
-        this.map.style.top = ((window.innerHeight / 2) -
-                              (this.pixelSize * vector[0])) + 'px';
-        this.map.style.left = ((window.innerWidth / 2) -
-                               (this.pixelSize * vector[1])) + 'px';
+        var newTop = ((window.innerHeight / 2) -
+                      (this.pixelSize * vector[0])) + 'px';
+        var newLeft = ((window.innerWidth / 2) -
+                       (this.pixelSize * vector[1])) + 'px';
+
+        if (this.map.style.top && this.map.style.left) {
+          this.map.animate([
+            {top: this.map.style.top, left: this.map.style.left},
+            {top: newTop, left: newLeft}
+          ], 500);
+        }
+
+        this.map.style.top = newTop;
+        this.map.style.left = newLeft;
 
         // check for entity
         var entity = Entities[symbol];
-        if (entity) { entity.interact(); }
+        if (entity) { (entity.interact || function() {})(); }
 
         // update volumes
         //
