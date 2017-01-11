@@ -117,7 +117,7 @@
     setLocation: function(vector, skipVolumes) {
       var symbol = this.position(vector);
 
-      if (symbol !== '#' && symbol != null) {
+      if (symbol !== '#' && symbol != null && !UI.buttonPressed) {
         this.currentLocation = vector;
 
         var newTop = ((window.innerHeight / 2) -
@@ -153,7 +153,6 @@
             if (entity.calculateVolume) {
               var volume = entity.calculateVolume(this.currentLocation);
               Audio[entity.label].volume(volume);
-              console.log(entity.label, volume);
             }
           }
         }

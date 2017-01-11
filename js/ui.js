@@ -42,6 +42,14 @@
 
       setTimeout(callback, 750);
     },
+
+    end: function() {
+      Audio.endAll();
+      var elements = document.querySelectorAll('*');
+      for (var i = 0; i < elements.length; i++) {
+        elements[i].remove();
+      }
+    }
   };
 
 })();

@@ -47,7 +47,7 @@
           'bush <span class="red">4 years</span> ... clinton <span class="blue">8 years</span>',
           'bush <span class="red">8 years</span> ... obama <span class="blue">8 years</span>',
           '???',
-          '... on some level we knew where we were in the cycle..'
+          '... on some level we had to know where we were in the cycle..'
         ], function() {
           this.activated = true;
           fadeToGrey(this.element);
@@ -184,7 +184,16 @@
       }
     }, {
       label: 'button',
-      interact: function() {}
+      interact: function() {
+        if (_.all(_.map([0, 1, 2, 4], function(i) {
+          return Entities[i].activated;
+        }))) {
+          UI.buttonPressed = true;
+          Audio.playNote();
+        } else {
+          Message.message('insufficient power');
+        }
+      }
     }
   ];
 
