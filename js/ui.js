@@ -4,6 +4,7 @@
 
     // Setup user interface
     initialize: function(callback) {
+      var that = this;
 
       // create avatar
       this.avatar = document.createElement('div');
@@ -21,13 +22,20 @@
           Message.step();
         } else {
           if (event.key === 'w') {
+            that.hasMoved = true;
             Map.move([-1, 0]);
           } else if (event.key === 'a') {
+            that.hasMoved = true;
             Map.move([0, -1]);
           } else if (event.key === 's') {
+            that.hasMoved = true;
             Map.move([1, 0]);
           } else if (event.key === 'd') {
+            that.hasMoved = true;
             Map.move([0, 1]);
+          } else if (event.key === 'e' && Map.currentEntity) {
+            that.hasInteracted = true;
+            Map.currentEntity.interact();
           }
         }
       });

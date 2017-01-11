@@ -34,9 +34,9 @@
       setTimeout(function() { Message.clear(); }, interval);
     },
 
-    multiPartMessage: function(parts, callback) {
+    multiPartMessage: function(parts, callback, context) {
       this.parts = parts;
-      this.callback = callback;
+      this.callback = function () { callback.call(context); };
       this.index = 0;
       this.set(this.parts[0]);
       this.display();
@@ -44,13 +44,18 @@
 
     // step through a multi-part message
     step: function() {
-      this.index++;
+      if (this.parts) {
+        this.index++;
 
-      if (this.parts[this.index]) {
-        this.set(this.parts[this.index]);
-      } else {
-        this.clear();
-        this.callback();
+        if (this.parts[this.index]) {
+          this.set(this.parts[this.index]);
+        } else {
+          this.clear();
+          this.parts = null;
+          this.context = null;
+          this.index = null;
+          this.callback();
+        }
       }
     }
   };

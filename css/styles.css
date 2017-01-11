@@ -35,14 +35,15 @@ body {
 }
 
 .entity {
+  box-sizing: border-box;
   border: 2px solid #000;
   border-radius: 100%;
   position: absolute;
   z-index: 2;
 }
 
-.entity.activated {
-  background-color: #aaa;
+.entity.button {
+  border: 5px solid #000;
 }
 
 .avatar {
@@ -53,11 +54,19 @@ body {
   z-index: 4;
 }
 
-.ui-image {
+.ui-wasd-image {
   display: inline-block;
   height: 200px;
   width: 300px;
-  background-image: url('../images/ui.png');
+  background-image: url('../images/ui-wasd.png');
+  background-size: 100%;
+}
+
+.ui-e-image {
+  display: inline-block;
+  height: 64px;
+  width: 68px;
+  background-image: url('../images/ui-e.png');
   background-size: 100%;
 }
 

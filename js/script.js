@@ -10,7 +10,9 @@
         UI.initialize(function() {
           Message.clear();
           setTimeout(function() {
-            Message.message('<div class="ui-image"></div>', 1500);
+            if (!UI.hasMoved) {
+              Message.message('<div class="ui-wasd-image"></div>', 1500);
+            }
           }, 2000);
         });
       });

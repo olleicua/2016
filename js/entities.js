@@ -1,9 +1,10 @@
 (function() {
 
+  var FADE_DISTANCE = 6;
+
   window.Entities = [
     {
       label: 'rhythm',
-      constructor: { name: 'Rhythm' },
       interact: function() {
         Message.multiPartMessage([
           'The world has a rhythm to it.',
@@ -13,12 +14,22 @@
           'a leader has not moral status as good or bad for the progress of humanity until we add a political context.'
         ], function() {
           this.activated = true;
-          this.element.className = 'entity activated';
-        });
+          fadeToGrey(this.element);
+        }, this);
+      },
+      calculateVolume: function(currentLocation) {
+        var region = Map.currentRegion();
+        if (region === 'politic') {
+          return Math.max((this.activated ? 0.8 : 0),
+                          (FADE_DISTANCE - euclideanDistance(this.position, currentLocation)) / FADE_DISTANCE);
+        } else if (region === 'interstitial' && this.activated) {
+          return 0.4;
+        } else {
+          return 0;
+        }
       }
     }, {
       label: 'basicgroove',
-      constructor: { name: 'BasicGroove' },
       interact: function() {
         Message.multiPartMessage([
           'In the United States a President serves as the locus of executive power for a term of four, or eight, years.',
@@ -39,8 +50,19 @@
           '... on some level we knew where we were in the cycle..'
         ], function() {
           this.activated = true;
-          this.element.className = 'entity activated';
-        });
+          fadeToGrey(this.element);
+        }, this);
+      },
+      calculateVolume: function(currentLocation) {
+        var region = Map.currentRegion();
+        if (region === 'politic') {
+          return Math.max((this.activated ? 0.8 : 0),
+                          (FADE_DISTANCE - euclideanDistance(this.position, currentLocation)) / FADE_DISTANCE);
+        } else if (region === 'interstitial' && this.activated) {
+          return 0.4;
+        } else {
+          return 0;
+        }
       }
     }, {
       label: 'texture',
@@ -56,15 +78,35 @@
           'By working together we can build a future where pleasure and prosperity are abundant.'
         ], function() {
           this.activated = true;
-          this.element.className = 'entity activated';
-        });
+          fadeToGrey(this.element);
+        }, this);
+      },
+      calculateVolume: function(currentLocation) {
+        var region = Map.currentRegion();
+        if (region === 'politic') {
+          return Math.max((this.activated ? 0.8 : 0),
+                          (FADE_DISTANCE - euclideanDistance(this.position, currentLocation)) / FADE_DISTANCE);
+        } else if (region === 'interstitial' && this.activated) {
+          return 0.4;
+        } else {
+          return 0;
+        }
       }
     }, {
       label: 'dance',
-      constructor: { name: 'Dance' }
+      interact: function() {
+        Message.message('Dance isn\'t something that can be explained in words. It has to be danced.<br /> -- Paige Arden', 2500);
+      },
+      calculateVolume: function(currentLocation) {
+        var region = Map.currentRegion();
+        if (region === 'boston') {
+          return Math.max(0, (FADE_DISTANCE - euclideanDistance(this.position, currentLocation)) / FADE_DISTANCE);
+        } else {
+          return 0;
+        }
+      }
     }, {
       label: 'hopesanddreams',
-      constructor: { name: 'HopesAndDreams' },
       interact: function() {
         Message.multiPartMessage([
           'We aspire to greatness but ultimately our dreams remain beyond our grasp..',
@@ -74,21 +116,75 @@
           'possible if we make just a few advances in material science.'
         ], function() {
           this.activated = true;
-          this.element.className = 'entity activated';
-        });
+          fadeToGrey(this.element);
+        }, this);
+      },
+      calculateVolume: function(currentLocation) {
+        var region = Map.currentRegion();
+        if (region === 'politic') {
+          return Math.max((this.activated ? 0.8 : 0),
+                          (FADE_DISTANCE - euclideanDistance(this.position, currentLocation)) / FADE_DISTANCE);
+        } else if (region === 'interstitial' && this.activated) {
+          return 0.4;
+        } else {
+          return 0;
+        }
       }
     }, {
       label: 'breakroads',
-      constructor: { name: 'BreakRoads' }
+      interact: function() {
+        Message.message('I crush everything.<br /> -- Jonathan Coulton', 2500);
+      },
+      calculateVolume: function(currentLocation) {
+        var region = Map.currentRegion();
+        if (region === 'maine') {
+          return Math.max(0, (FADE_DISTANCE - euclideanDistance(this.position, currentLocation)) / FADE_DISTANCE);
+        } else {
+          return 0;
+        }
+      }
     }, {
       label: 'breakatmosphere',
-      constructor: { name: 'BreakAtmosphere' }
+      interact: function() {
+        Message.message('Did the stars come out? did the world spin round?<br />Doesn\'t matter that much when you are ten miles down<br /> -- Jonathan Coulton', 2500);
+      },
+      calculateVolume: function(currentLocation) {
+        var region = Map.currentRegion();
+        if (region === 'maine') {
+          return Math.max(0, (FADE_DISTANCE - euclideanDistance(this.position, currentLocation)) / FADE_DISTANCE);
+        } else {
+          return 0;
+        }
+      }
     }, {
       label: 'breakbeat',
-      constructor: { name: 'BreakBeat' }
+      interact: function() {
+        Message.message('If your heart beats too fast it will break<br /> .. like anything else', 2500);
+      },
+      calculateVolume: function(currentLocation) {
+        var region = Map.currentRegion();
+        if (region === 'maine') {
+          return Math.max(0, (FADE_DISTANCE - euclideanDistance(this.position, currentLocation)) / FADE_DISTANCE);
+        } else {
+          return 0;
+        }
+      }
+    }, {
+      label: 'everythingihave',
+      interact: function() {
+        Message.message('We had everything', 2500);
+      },
+      calculateVolume: function(currentLocation) {
+        var region = Map.currentRegion();
+        if (region === 'maine') {
+          return Math.max(0, (FADE_DISTANCE - euclideanDistance(this.position, currentLocation)) / FADE_DISTANCE);
+        } else {
+          return 0;
+        }
+      }
     }, {
       label: 'button',
-      constructor: { name: 'Button' }
+      interact: function() {}
     }
   ];
 

@@ -44,8 +44,6 @@
         var allTracksLoaded = _.after(tracks.length, function() {
           for (var i = 0; i < tracks.length; i++) { that[tracks[i]].start(); }
 
-          that.rhythm.volume(0.02);
-
           setTimeout(callback, 750);
         });
 
