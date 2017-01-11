@@ -49,10 +49,7 @@
         var trackName = tracks[i];
         this[trackName] = new Loop(trackName, allTracksLoaded);
       }
-    },
-
-    // modify the volume of a particular track or region
-    setVolume: function(label, volume) {}
+    }
   };
 
 })();

@@ -14,4 +14,27 @@ body {
   font-size: 33px;
   padding: 15%;
   box-sizing: border-box;
+  z-index: 2;
+}
+
+.map {
+  background-color: #000;
+  position: fixed;
+  z-index: 1;
+}
+
+.space {
+  background-color: #fff;
+  position: absolute;
+}
+
+.entity {
+
+}
+
+.avatar {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 4;
 }
