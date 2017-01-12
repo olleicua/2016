@@ -11,7 +11,7 @@
           'Power changes hands at regular intervals.',
           'Monotonously.',
           'Just as a drum beat has no melodic context before we add another instrument;',
-          'a leader has not moral status as good or bad for the progress of humanity until we add a political context.'
+          'a leader has no moral status as good or bad for the progress of humanity until we add a political context.'
         ], function() {
           this.activated = true;
           fadeToGrey(this.element);
