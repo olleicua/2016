@@ -188,8 +188,13 @@
         if (_.all(_.map([0, 1, 2, 4], function(i) {
           return Entities[i].activated;
         }))) {
+          if (UI.buttonPressed) Audio.playNote();
+          Audio.rhythm.volume(0.3);
+          Audio.basicgroove.volume(0.3);
+          Audio.texture.volume(0.3);
+          Audio.hopesanddreams.volume(0.3);
+          fadeToGrey(this.element);
           UI.buttonPressed = true;
-          Audio.playNote();
         } else {
           Message.message('insufficient power');
         }

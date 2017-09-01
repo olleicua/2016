@@ -102,14 +102,14 @@
       if (!this.playing) {
         if (melody[this.noteIndex]) {
           var note = melody[this.noteIndex];
-          var duration = /\*/.exec(note) ? 3000 : 1500;
+          var duration = /\*/.exec(note) ? 2000 : 1000;
           note = note.replace('*', '');
           this.notes[note].start();
           this.noteIndex++;
           this.playing = true;
           setTimeout(function() { that.playing = false; }, duration);
         } else {
-          Message.message('what sound does the nuclear apocolypse make?', 2000);
+          Message.message('what sound does the nuclear apocalypse make?', 2000);
           setTimeout(function() {
             UI.end();
           }, 2000);
