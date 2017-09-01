@@ -3,7 +3,7 @@
   var tracks = ('basicgroove breakbeat dance hopesanddreams texture ' +
                 'breakatmosphere breakroads everythingihave rhythm').split(' ');
   var notes = ('G B C D E Gb G2 A2 B2 C2 D2').split(' ');
-  var melody = ('D B G* B* D* G2* B2 A2 G2* B* C* D* D D B2* A2 G2* Gb* E Gb G2* G2* D* B* G* B2 B2 B2* C2* D2* D2* C2 B2 A2* B2* C2* C2* C2 B2* A2 G2 Gb* E Gb G2* B* C* D* D* G2* G2 G2 Gb E* E E A2* C2 B2 A2 G2 G2* A2 G2 Gb* D D G2* A2 B2 C2 D2* G2 A2 B2* C2 A2* G2*').split(' ');
+  var melody = ('D B G* B* D* G2* B2 A2 G2* B* C* D* D D B2* A2 G2* Gb* E Gb G2* G2* D* B* G* B2 B2 B2* C2* D2* D2* C2 B2 A2* B2* C2* C2* C2 B2* A2 G2 Gb* E Gb G2* B* C* D* D* G2* G2 G2 Gb E* E E A2* C2 B2 A2 G2 G2* A2 G2 Gb* D D G2* A2 B2 C2 D2* G2 A2 B2* C2 A2* G2* G2*').split(' ');
 
   function Note(label) {
     var that = this;
@@ -109,10 +109,10 @@
           this.playing = true;
           setTimeout(function() { that.playing = false; }, duration);
         } else {
-          Message.message('what sound does the nuclear apocalypse make?', 2000);
+          Message.message('what sound does the nuclear apocalypse make?', 3000);
           setTimeout(function() {
             UI.end();
-          }, 2000);
+          }, 4000);
         }
       }
     },

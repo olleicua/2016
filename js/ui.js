@@ -20,6 +20,8 @@
       window.addEventListener('keyup', function(event) {
         if (Message.isOpen) {
           Message.step();
+        } else if (UI.buttonPressed && Map.currentEntity) {
+          Map.currentEntity.interact();
         } else {
           if (event.key === 'w') {
             that.hasMoved = true;
